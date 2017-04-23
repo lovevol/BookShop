@@ -14,10 +14,31 @@
     border: 1px solid #E4E4E4;
     float: left;
 }
+.productImage{
+    width: 310px;
+    height: 500px;
+    margin: 5px;
+    padding: 2px 2px 2px 2px;
+    font: 16px Georgia, "Times New Roman", Times, serif;
+    color: #060606;
+    border: 1px solid #E4E4E4;
+    float: left;
+}
+.productDetials{
+    width: 700px;
+    height: 500px;
+    margin: 5px;
+    padding: 2px 2px 2px 2px;
+    font: 16px Georgia, "Times New Roman", Times, serif;
+    color: #060606;
+    border: 1px solid #E4E4E4;
+    float: left;
+}
 .myLeft{
     width: 200px;
-    height: 2000px;
+    height: 1630px;
     background: rgb(247, 247, 247);
+    margin: 5px;
     padding: 2px 2px 2px 2px;
     margin-right: 5px;
     font: 16px Georgia, "Times New Roman", Times, serif;

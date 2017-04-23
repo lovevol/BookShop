@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="model.ShoppingRecords" table="shopping_records" schema="bookshopdb">
+        <id name="idshoppingRecords">
+            <column name="idshopping_records" sql-type="int(11)"/>
+        </id>
+        <property name="date">
+            <column name="date" sql-type="date"/>
+        </property>
+        <property name="number">
+            <column name="number" sql-type="int(11)"/>
+        </property>
+        <property name="isfinished">
+            <column name="isfinished" sql-type="tinyint(1)"/>
+        </property>
+    </class>
+</hibernate-mapping>
