@@ -7,7 +7,7 @@ import javax.persistence.Id;
 
 /**
  * Created by lh
- * on 2017/4/23.
+ * on 2017/5/5.
  */
 @Entity
 public class Book {
@@ -17,6 +17,9 @@ public class Book {
     private String description;
     private String bookname;
     private byte isfinished;
+    private String category;
+    private Byte ischecked;
+    private User user;
 
     @Id
     @Column(name = "idbooks", nullable = false)
@@ -49,7 +52,7 @@ public class Book {
     }
 
     @Basic
-    @Column(name = "description", nullable = true, length = -1)
+    @Column(name = "description", nullable = false, length = -1)
     public String getDescription() {
         return description;
     }
@@ -78,6 +81,26 @@ public class Book {
         this.isfinished = isfinished;
     }
 
+    @Basic
+    @Column(name = "category", nullable = false, length = 20)
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    @Basic
+    @Column(name = "ischecked", nullable = true)
+    public Byte getIschecked() {
+        return ischecked;
+    }
+
+    public void setIschecked(Byte ischecked) {
+        this.ischecked = ischecked;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -91,6 +114,8 @@ public class Book {
         if (isbn != null ? !isbn.equals(book.isbn) : book.isbn != null) return false;
         if (description != null ? !description.equals(book.description) : book.description != null) return false;
         if (bookname != null ? !bookname.equals(book.bookname) : book.bookname != null) return false;
+        if (category != null ? !category.equals(book.category) : book.category != null) return false;
+        if (ischecked != null ? !ischecked.equals(book.ischecked) : book.ischecked != null) return false;
 
         return true;
     }
@@ -106,6 +131,16 @@ public class Book {
         result = 31 * result + (description != null ? description.hashCode() : 0);
         result = 31 * result + (bookname != null ? bookname.hashCode() : 0);
         result = 31 * result + (int) isfinished;
+        result = 31 * result + (category != null ? category.hashCode() : 0);
+        result = 31 * result + (ischecked != null ? ischecked.hashCode() : 0);
         return result;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

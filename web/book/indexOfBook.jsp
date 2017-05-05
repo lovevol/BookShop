@@ -1,4 +1,4 @@
-<%--
+<%@ page import="model.User" %><%--
   Created by IntelliJ IDEA.
   User: lh
   Date: 2017/4/14
@@ -15,6 +15,7 @@
     <title>主页</title>
 </head>
 <body>
+
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
@@ -27,11 +28,11 @@
             <ul class="nav navbar-nav">
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                       aria-expanded="false">我 <span class="caret"></span></a>
+                       aria-expanded="false">我<span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a href="#">我的发布</a></li>
                         <li><a href="#">我的购买</a></li>
-                        <li><a href="#">我要发布</a></li>
+                        <li><a href="${pageContext.request.contextPath}/user/indexOfUser.jsp">我要发布</a></li>
                         <li role="separator" class="divider"></li>
                         <li><a href="#">个人信息</a></li>
                     </ul>
@@ -46,6 +47,8 @@
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="#">消息 <span class="badge">4</span></a></li>
                 <li><a href="#">退出</a></li>
+                <li><a href="pageControl.action?pageControl=pageUp">上一页</a></li>
+                <li><a href="pageControl.action?pageControl=pageDown">下一页</a></li>
             </ul>
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
@@ -53,35 +56,61 @@
 <div style="height: 55px">
 
 </div>
-<div class="myLeft">
-    <div style="text-align: center;">
-        <h2>分类查看</h2>
-        <a href="#">计算机</a>
-        <br>
-        <a href="#">通信</a>
-        <br>
-        <a href="#">数理</a>
-        <br>
-        <a href="#">法学</a>
-        <br>
-        <a href="#">文学</a>
-        <br>
-        <a href="#">其他</a>
-        <br>
-    </div>
-</div>
-<iframe scrolling="none" align="left" height="1700px" width="85%" id="iframeProductShow" frameborder="0"
-        src="${pageContext.request.contextPath}/book/bookShow.jsp"></iframe>
-<nav class="navbar navbar-default navbar-fixed-bottom">
-    <div class="container">
-        <form action="" method="post" class="navbar-form navbar-right">
-            <input type="submit" class="btn btn-default" value="下一页">
-        </form>
-        <form action="" method="post" class="navbar-form navbar-right">
-            <input type="submit" class="btn btn-default" value="上一页">
-        </form>
+<%
+    User user = new User();
+    user.setIduser("14122232");
+    user.setUsername("刘豪");
+    user.setPassword("123456");
+    user.setPhone("13120527361");
+    session.setAttribute("user",user);
+    String pageControl = (String) request.getAttribute("pageControl");
+    if (session.getAttribute("pageSize") == null && session.getAttribute("currentPage") == null) {
+        session.setAttribute("pageSize", 42);
+        session.setAttribute("currentPage", 1);
+    }
+    if (!(pageControl == null)) {
+        int currentPage = (int) session.getAttribute("currentPage");
+        if (pageControl.equals("pageUp")) {
+            if (currentPage >= 2)
+                session.setAttribute("currentPage", currentPage - 1);
+        } else if (pageControl.equals("pageDown")) {
+            session.setAttribute("currentPage", currentPage + 1);
+        }
+    }
+%>
 
-    </div>
-</nav>
+<div class="myLeft" style="text-align: center;">
+    <h2>分类查看</h2>
+    <nav class="navbar navbar-inverse" id="sidebar-wrapper" role="navigation"
+         style="background-color: #f7f7f7;border: none">
+        <ul class="nav sidebar-nav">
+            <li>
+                <a href="#">计算机</a>
+            </li>
+            <li>
+                <a href="#">通信</a>
+            </li>
+            <li>
+                <a href="#">数理</a>
+            </li>
+            <li>
+                <a href="#">法学</a>
+            </li>
+            <li>
+                <a href="#">文学</a>
+            </li>
+            <li>
+                <a href="#">其他</a>
+            </li>
+        </ul>
+    </nav>
+</div>
+<div style="float: left;height:1750px;width: 90%;">
+    <iframe style="margin-left: 12%" align="left" height="1750px" width="1750px" id="iframeProductShow" frameborder="0"
+            src="${pageContext.request.contextPath}/book/bookShow.jsp"></iframe>
+</div>
+<div style="margin-top:1750px;text-align: center;height: 20px">
+    第<%=session.getAttribute("currentPage")%>页
+</div>
 </body>
 </html>

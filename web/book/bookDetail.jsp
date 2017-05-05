@@ -5,7 +5,8 @@
 <%@ page import="javax.persistence.Query" %>
 <%@ page import="java.util.List" %>
 <%@ page import="org.hibernate.Transaction" %>
-<%@ page import="javax.persistence.criteria.CriteriaBuilder" %><%--
+<%@ page import="javax.persistence.criteria.CriteriaBuilder" %>
+<%@ page import="java.util.Iterator" %><%--
   Created by IntelliJ IDEA.
   User: lh
   Date: 2017/4/15
@@ -29,28 +30,27 @@
     Session session1 = sessionFactory.openSession();
     Transaction transaction = session1.beginTransaction();
     Query query = session1.createQuery("from Book where idbooks = ?");
-    query.setParameter(0,id);
+    query.setParameter(0, id);
     List list = query.getResultList();
     transaction.commit();
     session1.close();
     sessionFactory.close();
     Book book = null;
-    if(list.get(0)!=null){
+    if (list.get(0) != null) {
         book = (Book) list.get(0);
     }
-    String dir = request.getServletContext().getRealPath("/");
-    String image1 = "test1.jpg";
-    String image2 = "test2.jpg";
-    String image3 = "test3.jpg";
-    String image4 = "test4.jpg";
-    assert book != null;%>
-<h2>java编程思想</h2>
+    String image1 = book.getUser().getIduser()+book.getIsbn()+"0.jpg";
+    String image2 = book.getUser().getIduser()+book.getIsbn()+"1.jpg";
+    String image3 = book.getUser().getIduser()+book.getIsbn()+"2.jpg";
+    String image4 = book.getUser().getIduser()+book.getIsbn()+"3.jpg";
+    %>
+<h2 style="margin:5px "><%=book.getBookname()%></h2>
 <div style="display: inline">
 
     <div class="productImage">
         <div style="text-align: center;">
             <img src="${pageContext.request.contextPath}/image/<%=image1%>" width="300" height="400">
-            <br>
+            <p></p>
             <img src="${pageContext.request.contextPath}/image/<%=image1%>" width="60" height="80" data-toggle="modal"
                  data-target="#myImageModal1">
             <img src="${pageContext.request.contextPath}/image/<%=image2%>" width="60" height="80" data-toggle="modal"
@@ -63,15 +63,62 @@
     </div>
 
     <div class="productDetials">
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-            购买
-        </button>
+        <br>
+        <table class="table">
+            <tr>
+                <td>ISBN:</td>
+                <td><%=book.getIsbn()%></td>
+            </tr>
+            <tr>
+                <td>价格:</td>
+                <td><%=book.getBookprice()%></td>
+            </tr>
+            <tr>
+                <td>类别:</td>
+                <td><%=book.getCategory()%></td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+                        购买
+                    </button>
+                </td>
+            </tr>
+        </table>
     </div>
 </div>
-<div style="width:100%; border: 1px solid #e4e4e4;float: left">
+<div style="width:1000px; border: 1px solid #e4e4e4;float: left;padding: 5px">
     <h3>详细信息</h3>
     <%=book.getDescription()%>
 </div>
+<%--<div style="width:90%;float: left">
+    <h3>该用户发布的书:</h3>
+    <%
+        Query query2 = session1.createQuery("from Book where User = ?");
+        query2.setParameter(0, book.getUser());
+        List list2 = query2.getResultList();
+        transaction.commit();
+        session1.close();
+        sessionFactory.close();
+        Iterator iterator = list2.iterator();
+        Book theBook;
+        while (iterator.hasNext()){
+            theBook = (Book) iterator.next();
+            image1 = theBook.getUser().getIduser()+book.getIsbn()+"0.jpg";
+    %>
+    <div class="product">
+        <a href="${pageContext.request.contextPath}/book/bookDetail.jsp?productId=<%=theBook.getIdbooks()%>">
+            <img src="${pageContext.request.contextPath}/image/<%=image1%>" height="80%" width="100%">
+        </a>
+        <h5><%=theBook.getBookname()%>
+        </h5>
+        <p>价格<%=theBook.getBookprice()%> 用户:<%=book.getUser().getIduser()%>
+        </p>
+    </div>
+    <%
+        }
+    %>
+</div>--%>
 <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
@@ -82,10 +129,10 @@
                 <h4 class="modal-title" id="myModalLabel">购买</h4>
             </div>
             <div class="modal-body">
-                ...
+                <p>确定购买，并且给相关用户发私信，双方通信方式互换，并尽快完成线下交易！</p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-dismiss="modal">确定</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">确定</button>
             </div>
         </div>
     </div>
@@ -96,6 +143,7 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                         aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" >图片浏览</h4>
             </div>
             <div class="modal-body" style="text-align: center">
                 <img src="${pageContext.request.contextPath}/image/<%=image1%>">
@@ -109,6 +157,7 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                         aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" >图片浏览</h4>
             </div>
             <div class="modal-body" style="text-align: center">
                 <img src="${pageContext.request.contextPath}/image/<%=image2%>">
@@ -122,6 +171,7 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                         aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" >图片浏览</h4>
             </div>
             <div class="modal-body" style="text-align: center">
                 <img src="${pageContext.request.contextPath}/image/<%=image3%>">
@@ -135,6 +185,7 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                         aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" >图片浏览</h4>
             </div>
             <div class="modal-body" style="text-align: center">
                 <img src="${pageContext.request.contextPath}/image/<%=image4%>">

@@ -7,8 +7,11 @@
 <struts>
     <package name="struts2" extends="struts-default">
         <action name="upload" class="action.Upload">
-            <result name="success">/product/uploadSuccess.jsp</result>
-            <result name="error">/product/uploadError.jsp</result>
+            <result name="success">/book/uploadSuccess.jsp</result>
+            <result name="error">/book/uploadError.jsp</result>
+        </action>
+        <action name="pageControl" class="action.PageControl">
+            <result name="success">/book/indexOfBook.jsp</result>
         </action>
     </package>
 </struts>

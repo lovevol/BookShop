@@ -15,7 +15,7 @@
             <column name="bookprice" sql-type="double" precision="-1"/>
         </property>
         <property name="description">
-            <column name="description" sql-type="text" not-null="true"/>
+            <column name="description" sql-type="text"/>
         </property>
         <property name="bookname">
             <column name="bookname" sql-type="char(40)" length="40"/>
@@ -23,5 +23,16 @@
         <property name="isfinished">
             <column name="isfinished" sql-type="tinyint(1)"/>
         </property>
+        <property name="category">
+            <column name="category" sql-type="varchar(20)" length="20"/>
+        </property>
+        <property name="ischecked">
+            <column name="ischecked" sql-type="tinyint(1)" not-null="true"/>
+        </property>
+        <many-to-one name="user"
+                     column="iduser"
+                     class="model.User"
+                     cascade="all"
+                     />
     </class>
 </hibernate-mapping>
