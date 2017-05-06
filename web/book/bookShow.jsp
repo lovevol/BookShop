@@ -28,13 +28,20 @@
 <%
     int pageSize = (int)session.getAttribute("pageSize");
     int currentPage = (int)session.getAttribute("currentPage");
+    String category = (String) session.getAttribute("category");
     //Configuration configuration = new Configuration().configure();
     //SessionFactory sessionFactory = configuration.buildSessionFactory();
     ApplicationContext ctx = new ClassPathXmlApplicationContext("spring.xml");
     SessionFactory sessionFactory = (SessionFactory) ctx.getBean("sessionFactory");
     Session session1 = sessionFactory.openSession();
     Transaction transaction = session1.beginTransaction();
-    Query query = session1.createQuery("from Book");
+    Query query;
+    if (category.equals("all")){
+        query = session1.createQuery("from Book where isfinished = 0");
+    }else {
+        query = session1.createQuery("from Book where isfinished = 0 and category = ?");
+        query.setParameter(0,category);
+    }
     query.setFirstResult(pageSize*(currentPage-1));
     query.setMaxResults(pageSize);
     List list = query.getResultList();

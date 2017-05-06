@@ -40,6 +40,7 @@ public class Upload extends ActionSupport {
         book.setUser(user);
         //Configuration configuration = new Configuration().configure();
         //SessionFactory sessionFactory = configuration.buildSessionFactory();
+        //利用spring获取hibernate的sessionFactory
         ApplicationContext ctx = new ClassPathXmlApplicationContext("spring.xml");
         SessionFactory sessionFactory = (SessionFactory) ctx.getBean("sessionFactory");
         Session session1 = sessionFactory.openSession();
@@ -49,7 +50,6 @@ public class Upload extends ActionSupport {
         session1.close();
         sessionFactory.close();
         String targetDirectory = ServletActionContext.getServletContext().getRealPath("/image")+"/";
-        //String targetDirectory ="D:\\IdeaProjects\\BookShop\\web\\image\\";
         for(int i = 0; i < file.length; i++){
             InputStream is = new FileInputStream(file[i]);
             OutputStream os = new FileOutputStream(targetDirectory+book.getUser().getIduser()+book.getIsbn()+i+".jpg");

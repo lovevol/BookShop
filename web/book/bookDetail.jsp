@@ -1,12 +1,13 @@
 <%@ page import="model.Book" %>
-<%@ page import="org.hibernate.cfg.Configuration" %>
-<%@ page import="org.hibernate.SessionFactory" %>
 <%@ page import="org.hibernate.Session" %>
-<%@ page import="javax.persistence.Query" %>
-<%@ page import="java.util.List" %>
+<%@ page import="org.hibernate.SessionFactory" %>
 <%@ page import="org.hibernate.Transaction" %>
-<%@ page import="javax.persistence.criteria.CriteriaBuilder" %>
-<%@ page import="java.util.Iterator" %><%--
+<%@ page import="org.springframework.context.ApplicationContext" %>
+<%@ page import="org.springframework.context.support.ClassPathXmlApplicationContext" %>
+<%@ page import="javax.persistence.Query" %>
+<%@ page import="java.util.Iterator" %>
+<%@ page import="java.util.List" %>
+<%--
   Created by IntelliJ IDEA.
   User: lh
   Date: 2017/4/15
@@ -25,16 +26,16 @@
 <%
     String productId = request.getParameter("productId");
     int id = Integer.parseInt(productId);
-    Configuration configuration = new Configuration().configure();
-    SessionFactory sessionFactory = configuration.buildSessionFactory();
+    //Configuration configuration = new Configuration().configure();
+    //SessionFactory sessionFactory = configuration.buildSessionFactory();
+    ApplicationContext ctx = new ClassPathXmlApplicationContext("spring.xml");
+    SessionFactory sessionFactory = (SessionFactory) ctx.getBean("sessionFactory");
     Session session1 = sessionFactory.openSession();
     Transaction transaction = session1.beginTransaction();
     Query query = session1.createQuery("from Book where idbooks = ?");
     query.setParameter(0, id);
     List list = query.getResultList();
     transaction.commit();
-    session1.close();
-    sessionFactory.close();
     Book book = null;
     if (list.get(0) != null) {
         book = (Book) list.get(0);
@@ -91,20 +92,22 @@
     <h3>详细信息</h3>
     <%=book.getDescription()%>
 </div>
-<%--<div style="width:90%;float: left">
+<div style="width:90%;float: left">
     <h3>该用户发布的书:</h3>
     <%
-        Query query2 = session1.createQuery("from Book where User = ?");
+        Transaction transaction2 = session1.beginTransaction();
+        Query query2 = session1.createQuery("from Book where user = ? and isfinished = 0");
         query2.setParameter(0, book.getUser());
         List list2 = query2.getResultList();
-        transaction.commit();
+        query2.setMaxResults(21);
+        transaction2.commit();
         session1.close();
         sessionFactory.close();
         Iterator iterator = list2.iterator();
         Book theBook;
         while (iterator.hasNext()){
             theBook = (Book) iterator.next();
-            image1 = theBook.getUser().getIduser()+book.getIsbn()+"0.jpg";
+            image1 = theBook.getUser().getIduser()+theBook.getIsbn()+"0.jpg";
     %>
     <div class="product">
         <a href="${pageContext.request.contextPath}/book/bookDetail.jsp?productId=<%=theBook.getIdbooks()%>">
@@ -118,7 +121,7 @@
     <%
         }
     %>
-</div>--%>
+</div>
 <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
