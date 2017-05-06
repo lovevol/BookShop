@@ -32,7 +32,7 @@
                     <ul class="dropdown-menu">
                         <li><a href="#">我的发布</a></li>
                         <li><a href="#">我的购买</a></li>
-                        <li><a href="${pageContext.request.contextPath}/user/indexOfUser.jsp">我要发布</a></li>
+                        <li><a href="${pageContext.request.contextPath}/user/indexOfUser.jsp?pageOfUser=uploadBook.jsp">我要发布</a></li>
                         <li role="separator" class="divider"></li>
                         <li><a href="#">个人信息</a></li>
                     </ul>
@@ -65,7 +65,7 @@
     session.setAttribute("user",user);
     String pageControl = (String) request.getAttribute("pageControl");
     if (session.getAttribute("pageSize") == null && session.getAttribute("currentPage") == null) {
-        session.setAttribute("pageSize", 42);
+        session.setAttribute("pageSize", 2);
         session.setAttribute("currentPage", 1);
     }
     if (!(pageControl == null)) {
@@ -104,13 +104,13 @@
             </li>
         </ul>
     </nav>
+    <div style="margin-top: 500px">
+        第<%=session.getAttribute("currentPage")%>页
+    </div>
 </div>
 <div style="float: left;height:1750px;width: 90%;">
     <iframe style="margin-left: 12%" align="left" height="1750px" width="1750px" id="iframeProductShow" frameborder="0"
             src="${pageContext.request.contextPath}/book/bookShow.jsp"></iframe>
-</div>
-<div style="margin-top:1750px;text-align: center;height: 20px">
-    第<%=session.getAttribute("currentPage")%>页
 </div>
 </body>
 </html>

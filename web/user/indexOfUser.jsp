@@ -25,12 +25,6 @@
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <form class="navbar-form navbar-left">
-                <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Search">
-                </div>
-                <button type="submit" class="btn btn-default">搜索</button>
-            </form>
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="#">消息 <span class="badge">4</span></a></li>
                 <li><a href="#">退出</a></li>
@@ -52,7 +46,7 @@
                 <a href="#">我的购买</a>
             </li>
             <li>
-                <a href="#">我要发布</a>
+                <a href="${pageContext.request.contextPath}/user/indexOfUser.jsp?pageOfUser=uploadBook.jsp">我要发布</a>
             </li>
             <li>
                 <a href="#">个人信息</a>
@@ -60,10 +54,12 @@
         </ul>
     </nav>
 </div>
-
+<%
+    String pageOfUser = (String)request.getParameter("pageOfUser");
+%>
 <div style="float: left;height:600px;width: 90%;">
-    <iframe style="margin-left: 12%" align="left" height="1750px" width="1750px" id="iframeUser" frameborder="0"
-            src="${pageContext.request.contextPath}/book/uploadBook.jsp"></iframe>
+    <iframe style="margin-left: 12%" align="left" height="1750px" width="1750px" name="iframeUser" id="iframeUser" frameborder="0"
+            src="${pageContext.request.contextPath}/book/<%=pageOfUser%>"></iframe>
 </div>
 </body>
 </html>

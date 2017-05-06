@@ -15,17 +15,17 @@
     <title>上传</title>
 </head>
 <body>
-<div style="width: 400px;margin: 10px;padding: 5px;margin: 0 auto">
+<div style="width: 400px;margin: 10px;padding: 5px;">
     <s:form action="upload" method="POST" theme="simple" enctype="multipart/form-data">
         <h2>发布</h2>
         <table class="table">
             <tr>
                 <td style="vertical-align: middle">书名:</td>
-                <td><s:textfield name="book.bookname" class="form-control"/></td>
+                <td><s:textfield name="book.bookname" class="form-control"/><span style="color: #e4261a; ">${errors.bookName[0]}</span> </td>
             </tr>
             <tr>
                 <td style="vertical-align: middle">ISBN:</td>
-                <td><s:textfield name="book.isbn" class="form-control"/></td>
+                <td><s:textfield name="book.isbn" class="form-control"/><span style="color: #e4261a; ">${errors.isbn[0]}</td>
             </tr>
             <tr>
                 <td style="vertical-align: middle">类别:</td>
@@ -36,13 +36,13 @@
                 <td><s:textfield name="book.bookprice" class="form-control"/></td>
             </tr>
             <tr>
-                <td colspan="2" style="text-align: center;vertical-align:middle;">描述</td>
+                <td colspan="2" style="text-align: center;vertical-align:middle;">描述<span style="color: #e4261a; ">${errors.description[0]}</td>
             </tr>
             <tr>
                 <td colspan="2"><s:textarea name="book.description" class="form-control"/></td>
             </tr>
             <tr>
-                <td colspan="2" style="text-align: center;vertical-align: middle">图片</td>
+                <td colspan="2" style="text-align: center;vertical-align: middle">图片<span style="color: #e4261a; ">${errors.file[0]}</td>
             </tr>
             <tr>
                 <td>封面:</td>

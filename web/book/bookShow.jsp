@@ -13,6 +13,8 @@
 <%@ page import="org.hibernate.Transaction" %>
 <%@ page import="java.util.Iterator" %>
 <%@ page import="model.Book" %>
+<%@ page import="org.springframework.context.ApplicationContext" %>
+<%@ page import="org.springframework.context.support.ClassPathXmlApplicationContext" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="s" uri="/struts-tags" %>
 <script type="text/javascript" src="${pageContext.request.contextPath}/css/jquery-3.2.1.min.js"></script>
@@ -24,11 +26,17 @@
 </head>
 <body>
 <%
-    Configuration configuration = new Configuration().configure();
-    SessionFactory sessionFactory = configuration.buildSessionFactory();
+    int pageSize = (int)session.getAttribute("pageSize");
+    int currentPage = (int)session.getAttribute("currentPage");
+    //Configuration configuration = new Configuration().configure();
+    //SessionFactory sessionFactory = configuration.buildSessionFactory();
+    ApplicationContext ctx = new ClassPathXmlApplicationContext("spring.xml");
+    SessionFactory sessionFactory = (SessionFactory) ctx.getBean("sessionFactory");
     Session session1 = sessionFactory.openSession();
     Transaction transaction = session1.beginTransaction();
     Query query = session1.createQuery("from Book");
+    query.setFirstResult(pageSize*(currentPage-1));
+    query.setMaxResults(pageSize);
     List list = query.getResultList();
     transaction.commit();
     session1.close();
