@@ -6,12 +6,54 @@
 <struts>
     <package name="struts2" extends="struts-default">
         <action name="upload" class="action.Upload">
-            <result name="success">/book/uploadSuccess.jsp</result>
-            <result name="error">/book/uploadError.jsp</result>
-            <result name="input">/book/uploadBook.jsp</result>
+            <result name="success">/user/uploadSuccess.jsp</result>
+            <result name="error">/user/uploadError.jsp</result>
+            <result name="input">/user/uploadBook.jsp</result>
         </action>
         <action name="pageControl" class="action.PageControl">
             <result name="success">/book/indexOfBook.jsp</result>
         </action>
+        <action name="logout" class="action.LogoutAction">
+            <result name="success" type="redirect">/index.jsp</result>
+        </action>
+        <action name="checkBookPass" class="action.CheckBookAction" method="pass">
+            <result type="redirect">/administrator/checkBook.jsp</result>
+        </action>
+        <action name="checkBookFali" class="action.CheckBookAction" method="fail">
+            <result type="redirect">/administrator/checkBook.jsp</result>
+        </action>
+        <action name="searchUser" class="action.ResetPasswordAction" method="search">
+            <result>/administrator/resetPasswordOfUser.jsp</result>
+        </action>
+        <action name="resetPassword" class="action.ResetPasswordAction" method="resetPassword">
+            <result>/administrator/resetPasswordOfUser.jsp</result>
+        </action>
+        <action name="revisePassword" class="action.RevisePasswordAction">
+            <result name="success" type="redirect">/user/resetPasswordSuccessful.jsp</result>
+            <result name="error">/user/userInfo.jsp</result>
+            <result name="input">/user/userInfo.jsp</result>
+        </action>
+    </package>
+    <package name="secondhandbook" namespace="/" extends="struts-default">
+        <action name="loginAction" class="action.LoginAction">
+            <result name="success" type="redirect">book/indexOfBook.jsp</result>
+            <result name="error">index.jsp</result>
+            <result name="administrator" type="redirect">/administrator/indexOfAdministrator.jsp</result>
+        </action>
+        <action name="registerAction" class="action.RegisterAction">
+            <result name="success" type="redirect">success.jsp</result>
+            <result name="error">index.jsp</result>
+        </action>
+        <action name="revisePersonInfo" class="action.revisePersonInfo">
+            <result name="success" type="redirect">user/userInfo.jsp</result>
+            <result name="error" type="redirect">user/userInfo.jsp</result>
+        </action>
+        <action name="myBookRevise" class="action.MyBookOperation" method="reviseBook">
+            <result type="redirect">user/myPublishment.jsp</result>
+        </action>
+        <action name="myBookDelete" class="action.MyBookOperation" method="deleteBook">
+            <result type="redirect">user/myPublishment.jsp</result>
+        </action>
+
     </package>
 </struts>

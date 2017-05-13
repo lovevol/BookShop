@@ -7,7 +7,7 @@ import javax.persistence.Id;
 
 /**
  * Created by lh
- * on 2017/4/23.
+ * on 2017/5/7.
  */
 @Entity
 public class User {
@@ -15,6 +15,7 @@ public class User {
     private String username;
     private String password;
     private String phone;
+    private String qq;
 
     @Id
     @Column(name = "iduser", nullable = false, length = 12)
@@ -56,6 +57,16 @@ public class User {
         this.phone = phone;
     }
 
+    @Basic
+    @Column(name = "qq", nullable = true, length = 20)
+    public String getQq() {
+        return qq;
+    }
+
+    public void setQq(String qq) {
+        this.qq = qq;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -67,6 +78,7 @@ public class User {
         if (username != null ? !username.equals(user.username) : user.username != null) return false;
         if (password != null ? !password.equals(user.password) : user.password != null) return false;
         if (phone != null ? !phone.equals(user.phone) : user.phone != null) return false;
+        if (qq != null ? !qq.equals(user.qq) : user.qq != null) return false;
 
         return true;
     }
@@ -77,6 +89,7 @@ public class User {
         result = 31 * result + (username != null ? username.hashCode() : 0);
         result = 31 * result + (password != null ? password.hashCode() : 0);
         result = 31 * result + (phone != null ? phone.hashCode() : 0);
+        result = 31 * result + (qq != null ? qq.hashCode() : 0);
         return result;
     }
 }

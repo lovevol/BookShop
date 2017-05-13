@@ -11,6 +11,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.io.*;
+import java.sql.Timestamp;
 
 /**
  * Created by lh
@@ -36,6 +37,7 @@ public class Upload extends ActionSupport {
     public String execute() throws Exception {
         book.setIschecked((byte) 0);
         book.setIsfinished((byte) 0);
+        book.setDate(new Timestamp(System.currentTimeMillis()));
         User user = (User) ServletActionContext.getRequest().getSession().getAttribute("user");
         book.setUser(user);
         //Configuration configuration = new Configuration().configure();

@@ -1,3 +1,4 @@
+<%@ taglib prefix="s" uri="/struts-tags" %>
 <%@ page import="model.Book" %>
 <%@ page import="org.hibernate.Session" %>
 <%@ page import="org.hibernate.SessionFactory" %>
@@ -26,8 +27,6 @@
 <%
     String productId = request.getParameter("productId");
     int id = Integer.parseInt(productId);
-    //Configuration configuration = new Configuration().configure();
-    //SessionFactory sessionFactory = configuration.buildSessionFactory();
     ApplicationContext ctx = new ClassPathXmlApplicationContext("spring.xml");
     SessionFactory sessionFactory = (SessionFactory) ctx.getBean("sessionFactory");
     Session session1 = sessionFactory.openSession();
@@ -40,11 +39,12 @@
     if (list.get(0) != null) {
         book = (Book) list.get(0);
     }
+   /* session.setAttribute("currentCheckBook",book);*/
     String image1 = book.getUser().getIduser()+book.getIsbn()+"0.jpg";
     String image2 = book.getUser().getIduser()+book.getIsbn()+"1.jpg";
     String image3 = book.getUser().getIduser()+book.getIsbn()+"2.jpg";
     String image4 = book.getUser().getIduser()+book.getIsbn()+"3.jpg";
-    %>
+%>
 <h2 style="margin:5px "><%=book.getBookname()%></h2>
 <div style="display: inline">
 
@@ -85,7 +85,10 @@
             <tr>
                 <td colspan="2">
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-                        购买
+                        通过
+                    </button>
+                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal2">
+                        不通过
                     </button>
                 </td>
             </tr>
@@ -96,37 +99,6 @@
     <h3>详细信息</h3>
     <%=book.getDescription()%>
 </div>
-<div style="width:90%;float: left">
-    <h3>该用户发布的书:</h3>
-    <%
-        Transaction transaction2 = session1.beginTransaction();
-        Query query2 = session1.createQuery("from Book where user = ? and isfinished = 0");
-        query2.setParameter(0, book.getUser());
-        List list2 = query2.getResultList();
-        query2.setMaxResults(21);
-        transaction2.commit();
-        session1.close();
-        sessionFactory.close();
-        Iterator iterator = list2.iterator();
-        Book theBook;
-        String imageNew;
-        while (iterator.hasNext()){
-            theBook = (Book) iterator.next();
-            imageNew = theBook.getUser().getIduser()+theBook.getIsbn()+"0.jpg";
-    %>
-    <div class="product">
-        <a href="${pageContext.request.contextPath}/book/bookDetail.jsp?productId=<%=theBook.getIdbooks()%>">
-            <img src="${pageContext.request.contextPath}/image/<%=imageNew%>" height="80%" width="100%">
-        </a>
-        <h5><%=theBook.getBookname()%>
-        </h5>
-        <p>价格<%=theBook.getBookprice()%> 用户:<%=book.getUser().getIduser()%>
-        </p>
-    </div>
-    <%
-        }
-    %>
-</div>
 <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
@@ -134,13 +106,36 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                         aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">购买</h4>
+                <h4 class="modal-title" id="myModalLabel">审核</h4>
             </div>
             <div class="modal-body">
-                <p>确定购买，并且给相关用户发私信，双方通信方式互换，并尽快完成线下交易！</p>
+                <p>确定图书通过审核，并将该图书展示在主页？</p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">确定</button>
+                <form action="checkBookPass.action" method="post">
+                    <input type="text" name="bookID" value="<%=id%>" hidden/>
+                    <input  type="submit" class="btn btn-danger" value="确定">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabe2">审核</h4>
+            </div>
+            <div class="modal-body">
+                <p>确定图书未通过审核，对该用户发送消息并删除该图书？</p>
+            </div>
+            <div class="modal-footer">
+                <form action="checkBookFali.action" method="post">
+                    <input type="text" name="bookID" value="<%=id%>" hidden/>
+                    <input  type="submit" class="btn btn-danger" value="确定">
+                </form>
             </div>
         </div>
     </div>

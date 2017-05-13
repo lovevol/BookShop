@@ -9,7 +9,7 @@
             <column name="idshopping_records" sql-type="int(11)"/>
         </id>
         <property name="date">
-            <column name="date" sql-type="date"/>
+            <column name="date" sql-type="datetime"/>
         </property>
         <property name="number">
             <column name="number" sql-type="int(11)"/>

@@ -4,10 +4,11 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.sql.Timestamp;
 
 /**
  * Created by lh
- * on 2017/5/5.
+ * on 2017/5/10.
  */
 @Entity
 public class Book {
@@ -19,6 +20,7 @@ public class Book {
     private byte isfinished;
     private String category;
     private Byte ischecked;
+    private Timestamp date;
     private User user;
 
     @Id
@@ -101,6 +103,16 @@ public class Book {
         this.ischecked = ischecked;
     }
 
+    @Basic
+    @Column(name = "date", nullable = true)
+    public Timestamp getDate() {
+        return date;
+    }
+
+    public void setDate(Timestamp date) {
+        this.date = date;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -116,6 +128,7 @@ public class Book {
         if (bookname != null ? !bookname.equals(book.bookname) : book.bookname != null) return false;
         if (category != null ? !category.equals(book.category) : book.category != null) return false;
         if (ischecked != null ? !ischecked.equals(book.ischecked) : book.ischecked != null) return false;
+        if (date != null ? !date.equals(book.date) : book.date != null) return false;
 
         return true;
     }
@@ -133,6 +146,7 @@ public class Book {
         result = 31 * result + (int) isfinished;
         result = 31 * result + (category != null ? category.hashCode() : 0);
         result = 31 * result + (ischecked != null ? ischecked.hashCode() : 0);
+        result = 31 * result + (date != null ? date.hashCode() : 0);
         return result;
     }
 

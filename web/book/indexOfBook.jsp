@@ -30,12 +30,12 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                        aria-expanded="false">我<span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="#">我的发布</a></li>
+                        <li><a href="${pageContext.request.contextPath}/user/indexOfUser.jsp?pageOfUser=myPublishment.jsp">我的发布</a></li>
                         <li><a href="#">我的购买</a></li>
                         <li><a href="${pageContext.request.contextPath}/user/indexOfUser.jsp?pageOfUser=uploadBook.jsp">我要发布</a>
                         </li>
                         <li role="separator" class="divider"></li>
-                        <li><a href="#">个人信息</a></li>
+                        <li><a href="${pageContext.request.contextPath}/user/indexOfUser.jsp?pageOfUser=userInfo.jsp">个人信息</a></li>
                     </ul>
                 </li>
             </ul>
@@ -47,7 +47,7 @@
             </form>
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="#">消息 <span class="badge">4</span></a></li>
-                <li><a href="#">退出</a></li>
+                <li><a href="logout.action">退出</a></li>
                 <li><a href="pageControl.action?pageControl=pageUp">上一页</a></li>
                 <li><a href="pageControl.action?pageControl=pageDown">下一页</a></li>
             </ul>
@@ -58,12 +58,13 @@
 
 </div>
 <%
-    User user = new User();
+    /*User user = new User();
     user.setIduser("14122232");
     user.setUsername("刘豪");
     user.setPassword("123456");
     user.setPhone("13120527361");
-    session.setAttribute("user", user);
+    session.setAttribute("user", user);*/
+    User user = (User) session.getAttribute("user");
     String category;
     category = (String) session.getAttribute("category");//初始化分类信息
     if (category == null) {
@@ -75,7 +76,7 @@
     String pageControl = (String) request.getAttribute("pageControl");
     String index = request.getParameter("index");
     if (session.getAttribute("pageSize") == null && session.getAttribute("currentPage") == null) {//初始化页面控制信息
-        session.setAttribute("pageSize", 2);
+        session.setAttribute("pageSize", 42);
         session.setAttribute("currentPage", 1);
     }
     if (!(pageControl == null)) {
@@ -127,7 +128,7 @@
     </div>
 </div>
 <div style="float: left;height:1750px;width: 90%;">
-    <iframe style="margin-left: 12%" align="left" height="1750px" width="1750px" id="iframeProductShow" frameborder="0"
+    <iframe style="margin-left: 12%" align="left" height="1750px" width="1750px" id="iframeProductShow" name="iframeProductShow" frameborder="0"
             src="${pageContext.request.contextPath}/book/bookShow.jsp"></iframe>
 </div>
 </body>

@@ -1,17 +1,17 @@
 package model;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.sql.Timestamp;
 
 /**
  * Created by lh
- * on 2017/4/23.
+ * on 2017/5/10.
  */
 @Entity
 @Table(name = "shopping_records", schema = "bookshopdb", catalog = "")
 public class ShoppingRecords {
     private int idshoppingRecords;
-    private Date date;
+    private Timestamp date;
     private int number;
     private byte isfinished;
 
@@ -27,11 +27,11 @@ public class ShoppingRecords {
 
     @Basic
     @Column(name = "date", nullable = false)
-    public Date getDate() {
+    public Timestamp getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(Timestamp date) {
         this.date = date;
     }
 

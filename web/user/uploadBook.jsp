@@ -15,24 +15,25 @@
     <title>上传</title>
 </head>
 <body>
-<div style="width: 400px;margin: 10px;padding: 5px;">
+<h2>发布</h2>
+<hr>
+<div style="width: 600px;margin: 20px;padding: 5px;">
     <s:form action="upload" method="POST" theme="simple" enctype="multipart/form-data">
-        <h2>发布</h2>
         <table class="table">
             <tr>
-                <td style="vertical-align: middle">书名:</td>
+                <td>书名:</td>
                 <td><s:textfield name="book.bookname" class="form-control"/><span style="color: #e4261a; ">${errors.bookName[0]}</span> </td>
             </tr>
             <tr>
-                <td style="vertical-align: middle">ISBN:</td>
+                <td>ISBN:</td>
                 <td><s:textfield name="book.isbn" class="form-control"/><span style="color: #e4261a; ">${errors.isbn[0]}</td>
             </tr>
             <tr>
-                <td style="vertical-align: middle">类别:</td>
+                <td>类别:</td>
                 <td><s:select name="book.category" list="{'计算机','通信','数理','法学','文学','其他'}" class="form-control"/></td>
             </tr>
             <tr>
-                <td style="vertical-align: middle">价格:</td>
+                <td>价格:</td>
                 <td><s:textfield name="book.bookprice" class="form-control"/></td>
             </tr>
             <tr>

@@ -1,0 +1,36 @@
+
+
+.tr-th {
+    height:13px;
+    line-height: 28px;
+    background : cornsilk;
+    overflow: hidden;
+}
+
+.tr-th span {
+    float: left;
+    height: 10px;
+    line-height: 18px;
+    font-size: 11px;
+}
+
+.tr-th .gap {
+    width: 15px;
+}
+
+.tr-th .dealtime {
+    margin-right: 30px;
+    width: 250px;
+    vertical-align: middle;
+}
+
+.tr-th .isbn {
+    width: 200px;
+    vertical-align: middle;
+}
+
+.tr-th .number {
+    width: 200px;
+    vertical-align: middle;
+}
+

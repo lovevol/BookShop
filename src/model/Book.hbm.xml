@@ -29,10 +29,13 @@
         <property name="ischecked">
             <column name="ischecked" sql-type="tinyint(1)" not-null="true"/>
         </property>
+        <property name="date">
+            <column name="date" sql-type="datetime" not-null="true"/>
+        </property>
         <many-to-one name="user"
                      column="iduser"
                      class="model.User"
-                     cascade="all"
+                     lazy="false"
                      />
     </class>
 </hibernate-mapping>
