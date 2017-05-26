@@ -15,11 +15,11 @@ public class HibernateUtils {
     static StandardServiceRegistry registry = null;
     static SessionFactory sessionFactory = null;
     static Session session = null;
-
     public static Session getSession() {
-        registry = new StandardServiceRegistryBuilder().configure().build();
+       registry = new StandardServiceRegistryBuilder().configure().build();
         sessionFactory = new MetadataSources(registry).buildMetadata().buildSessionFactory();
         session = sessionFactory.openSession();
+
         return session;
     }
 

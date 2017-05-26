@@ -29,6 +29,7 @@
     int pageSize = (int)session.getAttribute("pageSize");
     int currentPage = (int)session.getAttribute("currentPage");
     String category = (String) session.getAttribute("category");
+    String keyWords = (String) request.getParameter("keyWords");
     //Configuration configuration = new Configuration().configure();
     //SessionFactory sessionFactory = configuration.buildSessionFactory();
     ApplicationContext ctx = new ClassPathXmlApplicationContext("spring.xml");
@@ -37,10 +38,23 @@
     Transaction transaction = session1.beginTransaction();
     Query query;
     if (category.equals("all")){//按照是否分类设计不同的查询
-        query = session1.createQuery("from Book where isfinished = 0 and ischecked = 1");
+        if (!(keyWords==null)){
+            query = session1.createQuery("from Book where isfinished = 0 and ischecked = 1 and bookname like ?");
+            query.setParameter(0,"%"+keyWords+"%");
+        }
+        else
+            query = session1.createQuery("from Book where isfinished = 0 and ischecked = 1");
     }else {
-        query = session1.createQuery("from Book where isfinished = 0 and ischecked = 1 and category = ?");
-        query.setParameter(0,category);
+        if (!(keyWords==null)){
+            query = session1.createQuery("from Book where isfinished = 0 and ischecked = 1 and category = ? and bookname like ?");
+            query.setParameter(0,category);
+            query.setParameter(1,"%"+keyWords+"%");
+        }
+        else{
+            query = session1.createQuery("from Book where isfinished = 0 and ischecked = 1 and category = ?");
+            query.setParameter(0,category);
+        }
+
     }
     query.setFirstResult(pageSize*(currentPage-1));
     query.setMaxResults(pageSize);

@@ -31,8 +31,10 @@ public class ResetPasswordAction extends ActionSupport {
         query.setParameter(0,userID);
         List list = query.getResultList();
         transaction.commit();
-        User user = (User) list.get(0);
-        ServletActionContext.getRequest().setAttribute("ResultOfSearch", user);
+        if (list.size()>0){
+            User user = (User) list.get(0);
+            ServletActionContext.getRequest().setAttribute("ResultOfSearch", user);
+        }
         return SUCCESS;
     }
     public String resetPassword() throws Exception{

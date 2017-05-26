@@ -123,7 +123,7 @@
 
           <li>
             <div class="inputArea">
-              <input type="button" id="reg"  style="margin-top:10px;margin-left:85px;" class="button_blue" value="同意协议并注册"/> <a href="#" class="zcxy" target="_blank">注册协议</a>
+              <input type="button" id="reg"  style="margin-top:10px;margin-left:85px;" class="button_blue" value="立即注册"/>
             </div>
 
           </li><div class="cl"></div>

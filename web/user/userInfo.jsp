@@ -128,13 +128,13 @@
                 <div class="modal-body">
                     <table class="table table-responsive">
                         <tr>
-                            <td>旧密码:</td><td> <s:textfield class="form-control" name="oldPassword" type="password"/></td>
+                            <td>旧密码:</td><td> <s:textfield class="form-control" name="oldPassword" type="password" maxLength="45"/></td>
                         </tr>
                         <tr>
-                            <td>新密码:</td><td> <s:textfield class="form-control" name="newPassword1" type="password"/></td>
+                            <td>新密码:</td><td> <s:textfield class="form-control" name="newPassword1" type="password" maxLength="45"/></td>
                         </tr>
                         <tr>
-                            <td>再确认:</td><td> <s:textfield class="form-control" name="newPassword2" type="password"/></td>
+                            <td>再确认:</td><td> <s:textfield class="form-control" name="newPassword2" type="password" maxLength="45"/></td>
                         </tr>
                     </table>
                     <div style="text-align: center;"><h6><span style="color: #e4261a; ">若密码修改成功请退出后重新登陆！</span> </h6></div>

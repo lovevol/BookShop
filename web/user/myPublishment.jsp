@@ -23,7 +23,7 @@
     <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/publishItem.css">
 </head>
 <body>
-    <table class="table table-responsive">
+    <table class="table table-responsive" style="width: 80%">
         <thead>
         <tr>
             <th width="350px">书单详情</th>

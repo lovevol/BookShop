@@ -6,6 +6,11 @@
 <struts>
     <package name="struts2" extends="struts-default">
         <action name="upload" class="action.Upload">
+            <interceptor-ref name="fileUpload">
+                <param name="allowedTypes">image/png,image/gif,image/jpeg</param>
+                <param name="maximumSize">1000000</param>
+            </interceptor-ref>
+            <interceptor-ref name="defaultStack"/>
             <result name="success">/user/uploadSuccess.jsp</result>
             <result name="error">/user/uploadError.jsp</result>
             <result name="input">/user/uploadBook.jsp</result>
@@ -50,6 +55,7 @@
         </action>
         <action name="myBookRevise" class="action.MyBookOperation" method="reviseBook">
             <result type="redirect">user/myPublishment.jsp</result>
+            <result name="input">user/reviseMyBook.jsp</result>
         </action>
         <action name="myBookDelete" class="action.MyBookOperation" method="deleteBook">
             <result type="redirect">user/myPublishment.jsp</result>

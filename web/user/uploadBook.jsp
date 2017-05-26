@@ -22,11 +22,11 @@
         <table class="table">
             <tr>
                 <td>书名:</td>
-                <td><s:textfield name="book.bookname" class="form-control"/><span style="color: #e4261a; ">${errors.bookName[0]}</span> </td>
+                <td><s:textfield name="book.bookname" class="form-control" maxLength="40"/><span style="color: #e4261a; ">${errors.bookName[0]}</span> </td>
             </tr>
             <tr>
                 <td>ISBN:</td>
-                <td><s:textfield name="book.isbn" class="form-control"/><span style="color: #e4261a; ">${errors.isbn[0]}</td>
+                <td><s:textfield name="book.isbn" class="form-control" maxLength="13"/><span style="color: #e4261a; ">${errors.isbn[0]}</span></td>
             </tr>
             <tr>
                 <td>类别:</td>
@@ -37,13 +37,13 @@
                 <td><s:textfield name="book.bookprice" class="form-control"/></td>
             </tr>
             <tr>
-                <td colspan="2" style="text-align: center;vertical-align:middle;">描述<span style="color: #e4261a; ">${errors.description[0]}</td>
+                <td colspan="2" style="text-align: center;vertical-align:middle;">描述<span style="color: #e4261a; ">${errors.description[0]}</span></td>
             </tr>
             <tr>
-                <td colspan="2"><s:textarea name="book.description" class="form-control"/></td>
+                <td colspan="2"><s:textarea name="book.description" class="form-control" /></td>
             </tr>
             <tr>
-                <td colspan="2" style="text-align: center;vertical-align: middle">图片<span style="color: #e4261a; ">${errors.file[0]}</td>
+                <td colspan="2" style="text-align: center;vertical-align: middle">图片(四张,大小<1M)<br><span style="color: #e4261a; ">${errors.file[0]}</span></td>
             </tr>
             <tr>
                 <td>封面:</td>
